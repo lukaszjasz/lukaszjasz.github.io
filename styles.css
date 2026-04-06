@@ -1024,16 +1024,18 @@ body.nav-open .nav-toggle span:last-child {
 .result-card {
   overflow: hidden;
   padding: 0;
+  align-self: start;
 }
 
 .result-card__media {
   position: relative;
-  aspect-ratio: 3 / 5;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.03);
 }
 
 .result-card__image {
+  object-fit: contain;
   object-position: center top;
 }
 
@@ -1501,7 +1503,7 @@ body.nav-open .nav-toggle span:last-child {
   }
 
   .results-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .quotes-grid {
