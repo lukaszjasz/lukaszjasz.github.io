@@ -547,12 +547,75 @@ body.nav-open .nav-toggle span:last-child {
 .scroll-accent {
   transition:
     color 0.38s ease,
+    opacity 0.38s ease,
     transform 0.38s ease,
     text-shadow 0.38s ease,
     border-color 0.38s ease,
     box-shadow 0.38s ease,
     background 0.38s ease,
     filter 0.38s ease;
+  will-change: opacity, transform, box-shadow, filter;
+}
+
+.scroll-accent:not(.is-accent-visible) {
+  opacity: 0.58;
+  filter: saturate(0.82) brightness(0.92);
+}
+
+@keyframes accent-glow-pop {
+  0% {
+    text-shadow: 0 0 0 rgba(43, 149, 255, 0);
+    transform: translateY(0);
+  }
+
+  55% {
+    text-shadow: 0 0 30px rgba(43, 149, 255, 0.28);
+    transform: translateY(-1px);
+  }
+
+  100% {
+    text-shadow: 0 0 20px rgba(43, 149, 255, 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes accent-chip-pop {
+  0% {
+    box-shadow: 0 0 0 rgba(43, 149, 255, 0);
+  }
+
+  55% {
+    box-shadow:
+      0 0 0 1px rgba(99, 187, 255, 0.2),
+      0 0 30px rgba(43, 149, 255, 0.24);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(99, 187, 255, 0.14),
+      0 0 22px rgba(43, 149, 255, 0.16);
+  }
+}
+
+@keyframes accent-dot-pop {
+  0% {
+    transform: scale(0.82);
+    box-shadow: 0 0 0 0 rgba(43, 149, 255, 0);
+  }
+
+  55% {
+    transform: scale(1.16);
+    box-shadow:
+      0 0 0 6px rgba(43, 149, 255, 0.24),
+      0 0 20px rgba(43, 149, 255, 0.26);
+  }
+
+  100% {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 0 5px rgba(43, 149, 255, 0.22),
+      0 0 18px rgba(43, 149, 255, 0.24);
+  }
 }
 
 .section-tag.scroll-accent.is-accent-visible,
@@ -567,6 +630,9 @@ body.nav-open .nav-toggle span:last-child {
   color: var(--accent-warm);
   text-shadow: 0 0 20px rgba(43, 149, 255, 0.2);
   transform: translateY(-1px);
+  opacity: 1;
+  filter: none;
+  animation: accent-glow-pop 0.6s ease;
 }
 
 .section-tag.scroll-accent.is-accent-visible,
@@ -577,6 +643,9 @@ body.nav-open .nav-toggle span:last-child {
   box-shadow:
     0 0 0 1px rgba(99, 187, 255, 0.14),
     0 0 22px rgba(43, 149, 255, 0.16);
+  animation:
+    accent-glow-pop 0.6s ease,
+    accent-chip-pop 0.6s ease;
 }
 
 .benefits-list li.scroll-accent,
@@ -584,6 +653,7 @@ body.nav-open .nav-toggle span:last-child {
 .pricing-list li.scroll-accent {
   transition:
     color 0.34s ease,
+    opacity 0.34s ease,
     transform 0.34s ease,
     text-shadow 0.34s ease;
 }
@@ -598,10 +668,26 @@ body.nav-open .nav-toggle span:last-child {
     background 0.34s ease;
 }
 
+.benefits-list li.scroll-accent:not(.is-accent-visible),
+.check-list li.scroll-accent:not(.is-accent-visible),
+.pricing-list li.scroll-accent:not(.is-accent-visible) {
+  opacity: 0.46;
+  transform: translateX(-0.15rem);
+}
+
+.benefits-list li.scroll-accent:not(.is-accent-visible)::before,
+.check-list li.scroll-accent:not(.is-accent-visible)::before,
+.pricing-list li.scroll-accent:not(.is-accent-visible)::before {
+  transform: scale(0.82);
+  box-shadow: 0 0 0 0 rgba(43, 149, 255, 0);
+}
+
 .benefits-list li.scroll-accent.is-accent-visible,
 .check-list li.scroll-accent.is-accent-visible,
 .pricing-list li.scroll-accent.is-accent-visible {
   color: var(--text);
+  opacity: 1;
+  filter: none;
   transform: translateX(0.2rem);
   text-shadow: 0 0 16px rgba(43, 149, 255, 0.1);
 }
@@ -613,6 +699,7 @@ body.nav-open .nav-toggle span:last-child {
   box-shadow:
     0 0 0 5px rgba(43, 149, 255, 0.22),
     0 0 18px rgba(43, 149, 255, 0.24);
+  animation: accent-dot-pop 0.55s ease;
 }
 
 .check-list--warning li.scroll-accent.is-accent-visible::before {

@@ -52,7 +52,7 @@ const activateAccentSequence = (container) => {
     accentQueuedTargets.add(target);
     target.classList.add("scroll-accent");
 
-    const delay = prefersReducedMotion.matches ? 0 : sequenceIndex * 110;
+    const delay = prefersReducedMotion.matches ? 0 : sequenceIndex * 170;
     window.setTimeout(() => {
       target.classList.add("is-accent-visible");
     }, delay);
