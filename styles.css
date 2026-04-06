@@ -701,6 +701,7 @@ body.nav-open .nav-toggle span:last-child {
 }
 
 .photo-card {
+  position: relative;
   overflow: hidden;
   padding: 0;
   border: 1px solid var(--line);
@@ -723,6 +724,30 @@ body.nav-open .nav-toggle span:last-child {
   margin: 0;
   padding: 1rem 1.15rem 1.15rem;
   color: var(--muted);
+}
+
+.trust-photo--before,
+.trust-photo--after,
+.trust-photo--current {
+  width: min(100%, 19.5rem);
+  min-width: 0;
+  justify-self: center;
+  align-self: start;
+}
+
+.trust-photo--before .photo-card__image,
+.trust-photo--after .photo-card__image,
+.trust-photo--current .photo-card__image {
+  min-height: 0;
+  aspect-ratio: 3 / 4;
+}
+
+.trust-photo--after .photo-card__image {
+  object-position: center 18%;
+}
+
+.trust-photo .photo-card__caption {
+  min-height: 5.6rem;
 }
 
 .hero-metrics,
@@ -1280,6 +1305,84 @@ body.nav-open .nav-toggle span:last-child {
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 719px) {
+  .split-panel--trust {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .split-panel--trust > .split-panel__main,
+  .split-panel--trust > .stacked-cards {
+    display: contents;
+  }
+
+  .trust-block--benefits {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .trust-block--custom {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .trust-photo--before {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .trust-photo--after {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .trust-block--credibility {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+
+  .trust-photo--current {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+
+  .trust-photo .photo-card__caption {
+    display: none;
+  }
+
+  .photo-card--journey-start::after,
+  .photo-card--journey-current::after,
+  .photo-card--journey-transformation::after {
+    position: absolute;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.38rem 0.7rem;
+    border: 1px solid rgba(43, 149, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(5, 9, 10, 0.74);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .photo-card--journey-start::after {
+    content: "Początek";
+  }
+
+  .photo-card--journey-current::after {
+    content: "Aktualnie";
+  }
+
+  .photo-card--journey-transformation::after {
+    content: "Transformacja";
+  }
 }
 
 @media (min-width: 720px) {
