@@ -1063,6 +1063,57 @@ body.nav-open .nav-toggle span:last-child {
   margin-top: 1.2rem;
 }
 
+.transform-gallery {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.transform-gallery__item {
+  position: relative;
+  width: min(100%, 15.5rem);
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
+    rgba(10, 16, 17, 0.94);
+  box-shadow: var(--shadow-md);
+}
+
+.transform-gallery__image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.transform-gallery__badge {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.38rem 0.7rem;
+  border: 1px solid rgba(43, 149, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(5, 9, 10, 0.74);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.transform-gallery__note {
+  max-width: 44rem;
+  margin: 1.25rem auto 0;
+  color: var(--muted);
+  text-align: center;
+}
+
 .cta-panel {
   padding: 2rem;
   border: 1px solid rgba(43, 149, 255, 0.22);
@@ -1193,6 +1244,14 @@ body.nav-open .nav-toggle span:last-child {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .transform-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .transform-gallery__item:last-child {
+    grid-column: 1 / -1;
+  }
+
   .site-footer__grid {
     grid-template-columns: 1.1fr auto auto;
     align-items: center;
@@ -1280,6 +1339,29 @@ body.nav-open .nav-toggle span:last-child {
   .faq-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
+  }
+
+  .transform-gallery {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .transform-gallery__item {
+    width: 100%;
+  }
+
+  .transform-gallery__item:nth-child(1),
+  .transform-gallery__item:nth-child(2),
+  .transform-gallery__item:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .transform-gallery__item:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .transform-gallery__item:nth-child(5) {
+    grid-column: 4 / span 2;
   }
 
   .contact-grid {
