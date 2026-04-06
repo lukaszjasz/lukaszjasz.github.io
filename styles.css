@@ -544,6 +544,83 @@ body.nav-open .nav-toggle span:last-child {
   box-shadow: 0 0 0 4px rgba(255, 129, 84, 0.12);
 }
 
+.scroll-accent {
+  transition:
+    color 0.38s ease,
+    transform 0.38s ease,
+    text-shadow 0.38s ease,
+    border-color 0.38s ease,
+    box-shadow 0.38s ease,
+    background 0.38s ease,
+    filter 0.38s ease;
+}
+
+.section-tag.scroll-accent.is-accent-visible,
+.panel-card__tag.scroll-accent.is-accent-visible,
+.audience-highlight__label.scroll-accent.is-accent-visible,
+.metric-card__value.scroll-accent.is-accent-visible,
+.timeline__year.scroll-accent.is-accent-visible,
+.step-card__index.scroll-accent.is-accent-visible,
+.pricing-card__badge.scroll-accent.is-accent-visible,
+.hero-glimpse__badge.scroll-accent.is-accent-visible,
+.transform-gallery__badge.scroll-accent.is-accent-visible {
+  color: var(--accent-warm);
+  text-shadow: 0 0 20px rgba(43, 149, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.section-tag.scroll-accent.is-accent-visible,
+.pricing-card__badge.scroll-accent.is-accent-visible,
+.hero-glimpse__badge.scroll-accent.is-accent-visible,
+.transform-gallery__badge.scroll-accent.is-accent-visible {
+  border-color: rgba(99, 187, 255, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(99, 187, 255, 0.14),
+    0 0 22px rgba(43, 149, 255, 0.16);
+}
+
+.benefits-list li.scroll-accent,
+.check-list li.scroll-accent,
+.pricing-list li.scroll-accent {
+  transition:
+    color 0.34s ease,
+    transform 0.34s ease,
+    text-shadow 0.34s ease;
+}
+
+.benefits-list li.scroll-accent::before,
+.check-list li.scroll-accent::before,
+.pricing-list li.scroll-accent::before {
+  transition:
+    transform 0.34s ease,
+    box-shadow 0.34s ease,
+    opacity 0.34s ease,
+    background 0.34s ease;
+}
+
+.benefits-list li.scroll-accent.is-accent-visible,
+.check-list li.scroll-accent.is-accent-visible,
+.pricing-list li.scroll-accent.is-accent-visible {
+  color: var(--text);
+  transform: translateX(0.2rem);
+  text-shadow: 0 0 16px rgba(43, 149, 255, 0.1);
+}
+
+.benefits-list li.scroll-accent.is-accent-visible::before,
+.check-list li.scroll-accent.is-accent-visible::before,
+.pricing-list li.scroll-accent.is-accent-visible::before {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 5px rgba(43, 149, 255, 0.22),
+    0 0 18px rgba(43, 149, 255, 0.24);
+}
+
+.check-list--warning li.scroll-accent.is-accent-visible::before {
+  box-shadow:
+    0 0 0 4px rgba(255, 129, 84, 0.16),
+    0 0 18px rgba(255, 129, 84, 0.2);
+}
+
 .hero__visual {
   display: grid;
   gap: 1rem;

@@ -6,7 +6,60 @@ const navLinks = [...document.querySelectorAll(".site-nav a")];
 const faqButtons = [...document.querySelectorAll(".faq-question")];
 const revealItems = [...document.querySelectorAll("[data-reveal]")];
 const sections = [...document.querySelectorAll("main section[id]")];
+const accentOnlyItems = [...document.querySelectorAll(".metric-card, .timeline__item")];
 const currentYear = document.getElementById("currentYear");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const accentTargetSelector = [
+  ".section-tag",
+  ".panel-card__tag",
+  ".audience-highlight__label",
+  ".metric-card__value",
+  ".timeline__year",
+  ".step-card__index",
+  ".pricing-card__badge",
+  ".hero-glimpse__badge",
+  ".transform-gallery__badge",
+  ".benefits-list li",
+  ".check-list li",
+  ".pricing-list li",
+].join(", ");
+const accentQueuedTargets = new WeakSet();
+
+const collectAccentTargets = (container) => {
+  const targets = [...container.querySelectorAll(accentTargetSelector)];
+
+  if (container.matches(accentTargetSelector)) {
+    targets.unshift(container);
+  }
+
+  return [...new Set(targets)];
+};
+
+const activateAccentSequence = (container) => {
+  const accentTargets = collectAccentTargets(container);
+
+  if (!accentTargets.length) {
+    return;
+  }
+
+  let sequenceIndex = 0;
+
+  accentTargets.forEach((target) => {
+    if (accentQueuedTargets.has(target)) {
+      return;
+    }
+
+    accentQueuedTargets.add(target);
+    target.classList.add("scroll-accent");
+
+    const delay = prefersReducedMotion.matches ? 0 : sequenceIndex * 110;
+    window.setTimeout(() => {
+      target.classList.add("is-accent-visible");
+    }, delay);
+
+    sequenceIndex += 1;
+  });
+};
 
 if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
@@ -67,6 +120,7 @@ const revealObserver = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
+        activateAccentSequence(entry.target);
         revealObserver.unobserve(entry.target);
       }
     });
@@ -75,6 +129,20 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
+
+const accentObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        activateAccentSequence(entry.target);
+        accentObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.16, rootMargin: "0px 0px -40px 0px" }
+);
+
+accentOnlyItems.forEach((item) => accentObserver.observe(item));
 
 const sectionObserver = new IntersectionObserver(
   (entries) => {
