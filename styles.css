@@ -31,6 +31,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -185,6 +189,31 @@ select {
 .site-footer__copy,
 .site-footer__meta {
   color: var(--muted);
+}
+
+.legal-page .section-heading h1 {
+  margin: 0.9rem 0 1rem;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(2.3rem, 7vw, 4.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.legal-page .legal-panel {
+  max-width: 56rem;
+}
+
+.legal-page .legal-panel .panel-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.legal-page .legal-panel p {
+  margin: 0;
+}
+
+.legal-page .site-footer {
+  padding-bottom: 2.4rem;
 }
 
 .site-header {
@@ -1407,6 +1436,7 @@ body.nav-open .nav-toggle span:last-child {
   display: grid;
   place-items: center;
   padding: 1rem;
+  pointer-events: none;
 }
 
 .contact-chooser__backdrop {
@@ -1446,6 +1476,10 @@ body.nav-open .nav-toggle span:last-child {
 .contact-chooser.is-open .contact-chooser__dialog {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+.contact-chooser.is-open {
+  pointer-events: auto;
 }
 
 .contact-chooser__top {
@@ -1566,6 +1600,7 @@ body.nav-open .nav-toggle span:last-child {
   display: grid;
   place-items: center;
   padding: 1rem;
+  pointer-events: none;
 }
 
 .opinion-lightbox__backdrop {
@@ -1604,6 +1639,10 @@ body.nav-open .nav-toggle span:last-child {
 .opinion-lightbox.is-open .opinion-lightbox__dialog {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+.opinion-lightbox.is-open {
+  pointer-events: auto;
 }
 
 .opinion-lightbox__top,
@@ -1951,6 +1990,22 @@ body.nav-open .nav-toggle span:last-child {
 }
 
 @media (max-width: 719px) {
+  .hero__grid {
+    grid-template-areas:
+      "visual"
+      "content";
+  }
+
+  .hero__visual {
+    grid-area: visual;
+    order: -1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero__content {
+    grid-area: content;
+  }
+
   .split-panel--trust {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
