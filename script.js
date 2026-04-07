@@ -7,6 +7,16 @@ const faqButtons = [...document.querySelectorAll(".faq-question")];
 const revealItems = [...document.querySelectorAll("[data-reveal]")];
 const sections = [...document.querySelectorAll("main section[id]")];
 const accentOnlyItems = [...document.querySelectorAll(".metric-card, .timeline__item")];
+const opinionButtons = [...document.querySelectorAll(".opinion-card")];
+const opinionLightbox = document.querySelector(".opinion-lightbox");
+const opinionLightboxImage = opinionLightbox?.querySelector(".opinion-lightbox__image");
+const opinionLightboxCaption = opinionLightbox?.querySelector(".opinion-lightbox__caption");
+const opinionLightboxCounter = opinionLightbox?.querySelector(".opinion-lightbox__counter");
+const opinionLightboxCloseButtons = [
+  ...document.querySelectorAll("[data-opinion-close]"),
+];
+const opinionLightboxPrev = opinionLightbox?.querySelector("[data-opinion-prev]");
+const opinionLightboxNext = opinionLightbox?.querySelector("[data-opinion-next]");
 const currentYear = document.getElementById("currentYear");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const accentTargetSelector = [
@@ -24,6 +34,7 @@ const accentTargetSelector = [
   ".pricing-list li",
 ].join(", ");
 const accentQueuedTargets = new WeakSet();
+let activeOpinionIndex = 0;
 
 const collectAccentTargets = (container) => {
   const targets = [...container.querySelectorAll(accentTargetSelector)];
@@ -61,6 +72,63 @@ const activateAccentSequence = (container) => {
   });
 };
 
+const isOpinionLightboxOpen = () =>
+  Boolean(opinionLightbox && !opinionLightbox.hidden);
+
+const setOpinionSlide = (index) => {
+  if (!opinionButtons.length || !opinionLightboxImage) {
+    return;
+  }
+
+  const total = opinionButtons.length;
+  activeOpinionIndex = (index + total) % total;
+
+  const activeButton = opinionButtons[activeOpinionIndex];
+  opinionLightboxImage.src = activeButton.dataset.opinionSrc || "";
+  opinionLightboxImage.alt = activeButton.dataset.opinionAlt || "";
+
+  if (opinionLightboxCaption) {
+    opinionLightboxCaption.textContent =
+      activeButton.dataset.opinionCaption ||
+      "Realny screen rekomendacji. Nazwisko zostało ukryte dla prywatności.";
+  }
+
+  if (opinionLightboxCounter) {
+    opinionLightboxCounter.textContent = `${activeOpinionIndex + 1} / ${total}`;
+  }
+};
+
+const openOpinionLightbox = (index) => {
+  if (!opinionLightbox) {
+    return;
+  }
+
+  setOpinionSlide(index);
+  opinionLightbox.hidden = false;
+  opinionLightbox.setAttribute("aria-hidden", "false");
+  body.classList.add("opinion-lightbox-open");
+
+  window.requestAnimationFrame(() => {
+    opinionLightbox.classList.add("is-open");
+  });
+};
+
+const closeOpinionLightbox = () => {
+  if (!opinionLightbox) {
+    return;
+  }
+
+  opinionLightbox.classList.remove("is-open");
+  opinionLightbox.setAttribute("aria-hidden", "true");
+  body.classList.remove("opinion-lightbox-open");
+
+  window.setTimeout(() => {
+    if (!opinionLightbox.classList.contains("is-open")) {
+      opinionLightbox.hidden = true;
+    }
+  }, 180);
+};
+
 if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
 }
@@ -85,6 +153,10 @@ navLinks.forEach((link) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
+    if (isOpinionLightboxOpen()) {
+      closeOpinionLightbox();
+    }
+
     closeNav();
   }
 });
@@ -113,6 +185,42 @@ faqButtons.forEach((button) => {
       }
     }
   });
+});
+
+opinionButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    openOpinionLightbox(index);
+  });
+});
+
+opinionLightboxCloseButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    closeOpinionLightbox();
+  });
+});
+
+opinionLightboxPrev?.addEventListener("click", () => {
+  setOpinionSlide(activeOpinionIndex - 1);
+});
+
+opinionLightboxNext?.addEventListener("click", () => {
+  setOpinionSlide(activeOpinionIndex + 1);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (!isOpinionLightboxOpen()) {
+    return;
+  }
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    setOpinionSlide(activeOpinionIndex - 1);
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    setOpinionSlide(activeOpinionIndex + 1);
+  }
 });
 
 const revealObserver = new IntersectionObserver(
