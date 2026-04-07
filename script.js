@@ -89,8 +89,7 @@ const setOpinionSlide = (index) => {
 
   if (opinionLightboxCaption) {
     opinionLightboxCaption.textContent =
-      activeButton.dataset.opinionCaption ||
-      "Realny screen rekomendacji. Nazwisko zostało ukryte dla prywatności.";
+      "Realny screen rekomendacji od podopiecznego.";
   }
 
   if (opinionLightboxCounter) {

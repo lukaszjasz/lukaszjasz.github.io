@@ -1303,8 +1303,7 @@ body.nav-open .nav-toggle span:last-child {
     0 0 0 1px rgba(43, 149, 255, 0.12);
 }
 
-.opinion-card__header,
-.opinion-card__footer {
+.opinion-card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1331,8 +1330,7 @@ body.nav-open .nav-toggle span:last-child {
   box-shadow: 0 0 0 5px rgba(43, 149, 255, 0.18);
 }
 
-.opinion-card__hint,
-.opinion-card__footer {
+.opinion-card__hint {
   color: var(--muted);
   font-size: 0.8rem;
   font-weight: 700;
@@ -1855,7 +1853,7 @@ body.nav-open .nav-toggle span:last-child {
   }
 
   .photo-card--journey-transformation::after {
-    content: "Transformacja";
+    content: "Droga do tytułu";
   }
 }
 
