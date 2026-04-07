@@ -5,10 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Sprzedażowy landing page Łukasza Jaszczura - dwukrotnego mistrza Polski Men's Physique i trenera personalnego onlineee."
+      content="Oferta trenera personalnego online, który pomoże Ci zbudować sylwetkę, z której będziesz dumny - zdrowo, świadomie i z indywidualnym planem działania."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Łukasz Jaszczur | Trener personalny online"
+    />
+    <meta
+      property="og:description"
+      content="Oferta trenera personalnego online, który pomoże Ci zbudować sylwetkę, z której będziesz dumny - zdrowo, świadomie i z indywidualnym planem działania."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Łukasz Jaszczur | Trener personalny online"
+    />
+    <meta
+      name="twitter:description"
+      content="Oferta trenera personalnego online, który pomoże Ci zbudować sylwetkę, z której będziesz dumny - zdrowo, świadomie i z indywidualnym planem działania."
     />
     <meta name="theme-color" content="#0a0f10" />
-    <title>Łukasz Jaszczur | jaszatrener.pl</title>
+    <title>Łukasz Jaszczur | Trener personalny online</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -98,10 +116,12 @@
             </div>
 
             <div class="button-row">
-              <a class="button button--primary" href="#kontakt"
+              <a class="button button--primary" href="#kontakt-kanaly" data-contact-open
                 >Zacznij współpracę</a
               >
-              <a class="button button--ghost" href="#oferta">Sprawdź ofertę</a>
+              <a class="button button--ghost" href="#kontakt-kanaly" data-contact-open
+                >Sprawdź ofertę</a
+              >
             </div>
 
             <div class="hero-highlight">
@@ -563,7 +583,11 @@
                 </div>
               </div>
 
-              <a class="button button--primary button--full" href="#kontakt"
+              <a
+                class="button button--primary button--full"
+                href="#kontakt-kanaly"
+                data-contact-open
+              >
                 >Zaczynam współpracę</a
               >
             </article>
@@ -838,11 +862,33 @@
             <span class="opinions-toolbar__pill">Kliknij, aby powiększyć</span>
           </div>
 
+          <div class="opinion-gallery-controls" data-reveal>
+            <button
+              class="opinion-gallery__control"
+              type="button"
+              data-opinion-gallery-prev
+              aria-label="Poprzednia opinia"
+            >
+              &lt;
+            </button>
+            <span class="opinion-gallery__status" aria-live="polite">1 / 8</span>
+            <button
+              class="opinion-gallery__control"
+              type="button"
+              data-opinion-gallery-next
+              aria-label="Następna opinia"
+            >
+              &gt;
+            </button>
+          </div>
+
           <div class="opinion-gallery" aria-label="Galeria opinii podopiecznych">
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-01-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 1"
                 data-opinion-src="./assets/opinia-01-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 1 - screen rekomendacji"
@@ -861,13 +907,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-02-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 2"
                 data-opinion-src="./assets/opinia-02-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 2 - screen rekomendacji"
@@ -886,13 +934,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-03-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 3"
                 data-opinion-src="./assets/opinia-03-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 3 - screen rekomendacji"
@@ -911,13 +961,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-04-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 4"
                 data-opinion-src="./assets/opinia-04-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 4 - screen rekomendacji"
@@ -936,13 +988,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-05-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 5"
                 data-opinion-src="./assets/opinia-05-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 5 - screen rekomendacji"
@@ -961,13 +1015,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-06-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 6"
                 data-opinion-src="./assets/opinia-06-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 6 - screen rekomendacji"
@@ -986,13 +1042,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-07-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 7"
                 data-opinion-src="./assets/opinia-07-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 7 - screen rekomendacji"
@@ -1011,13 +1069,15 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
 
             <article class="opinion-card-wrap" data-reveal>
-              <button
+              <a
                 class="opinion-card"
-                type="button"
+                href="./assets/opinia-08-zanonimizowana.png"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Otwórz opinię podopiecznego 8"
                 data-opinion-src="./assets/opinia-08-zanonimizowana.png"
                 data-opinion-alt="Opinia podopiecznego 8 - screen rekomendacji"
@@ -1036,7 +1096,7 @@
                     decoding="async"
                   />
                 </div>
-              </button>
+              </a>
             </article>
           </div>
 
@@ -1322,10 +1382,10 @@
             </p>
 
             <div class="button-row">
-              <a class="button button--primary" href="#kontakt-kanaly"
+              <a class="button button--primary" href="#kontakt-kanaly" data-contact-open
                 >Zacznij współpracę</a
               >
-              <a class="button button--ghost" href="#kontakt-kanaly"
+              <a class="button button--ghost" href="#kontakt-kanaly" data-contact-open
                 >Napisz do mnie i sprawdź, czy to dla Ciebie</a
               >
             </div>
@@ -1339,24 +1399,24 @@
           <div class="contact-grid" id="kontakt-kanaly">
             <article class="contact-card" data-reveal>
               <span class="contact-card__label">Instagram</span>
-              <p>Napisz do mnie na Instagramie: jasza.trener.</p>
+              <p>Tu najłatwiej złapiesz pierwszy kontakt i przejdziesz dalej.</p>
               <a href="https://www.instagram.com/jasza.trener/" target="_blank" rel="noreferrer"
-                >@jasza.trener</a
+                >Otwórz profil</a
               >
             </article>
 
             <article class="contact-card" data-reveal>
-              <span class="contact-card__label">Facebook</span>
-              <p>Znajdziesz mnie też na Facebooku pod nazwą jasza.trener.</p>
-              <a href="https://www.facebook.com/jasza.trener" target="_blank" rel="noreferrer"
-                >jasza.trener</a
+              <span class="contact-card__label">Messenger</span>
+              <p>Wygodna opcja, jeśli wolisz pierwszy kontakt przez Facebooka.</p>
+              <a href="https://m.me/jasza.trener" target="_blank" rel="noreferrer"
+                >Przejdź do rozmowy</a
               >
             </article>
 
             <article class="contact-card" data-reveal>
               <span class="contact-card__label">E-mail</span>
-              <p>Napisz maila, jeśli chcesz zacząć współpracę lub umówić konsultację.</p>
-              <a href="mailto:jasza.trener@gmail.com">jasza.trener@gmail.com</a>
+              <p>Dobra opcja, jeśli chcesz od razu opisać cel i swoją sytuację.</p>
+              <a href="mailto:jasza.trener@gmail.com?subject=Chc%C4%99%20rozpocz%C4%85%C4%87%20wsp%C3%B3%C5%82prac%C4%99">Otwórz pocztę</a>
             </article>
 
             <article class="contact-card" data-reveal>
@@ -1371,6 +1431,74 @@
         </div>
       </section>
     </main>
+
+    <div class="contact-chooser" hidden aria-hidden="true">
+      <div class="contact-chooser__backdrop" data-contact-close></div>
+      <div
+        class="contact-chooser__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-chooser-title"
+      >
+        <div class="contact-chooser__top">
+          <div>
+            <p class="contact-chooser__eyebrow" id="contact-chooser-title">
+              Wybierz pierwszy krok
+            </p>
+            <p class="contact-chooser__subline">
+              Zdecyduj, który kanał kontaktu jest dla Ciebie najwygodniejszy
+            </p>
+          </div>
+
+          <button
+            class="contact-chooser__close"
+            type="button"
+            data-contact-close
+            aria-label="Zamknij wybór kontaktu"
+          >
+            Zamknij
+          </button>
+        </div>
+
+        <div class="contact-chooser__grid">
+          <a
+            class="contact-chooser__card"
+            href="https://www.instagram.com/jasza.trener/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="contact-chooser__label">Instagram</span>
+            <strong>Otwórz profil</strong>
+            <p>Tu najłatwiej złapać pierwszy kontakt i przejść dalej.</p>
+          </a>
+
+          <a
+            class="contact-chooser__card"
+            href="https://m.me/jasza.trener"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="contact-chooser__label">Messenger</span>
+            <strong>Przejdź do rozmowy</strong>
+            <p>Wygodna opcja, jeśli wolisz kontakt przez Facebooka.</p>
+          </a>
+
+          <a
+            class="contact-chooser__card"
+            href="mailto:jasza.trener@gmail.com?subject=Chc%C4%99%20rozpocz%C4%85%C4%87%20wsp%C3%B3%C5%82prac%C4%99"
+          >
+            <span class="contact-chooser__label">E-mail</span>
+            <strong>Otwórz pocztę</strong>
+            <p>Dobra opcja, jeśli chcesz od razu opisać swój cel.</p>
+          </a>
+        </div>
+
+        <p class="contact-chooser__note">
+          Po pierwszym kontakcie możemy przejść na dogodny kanał, zadzwonić i
+          umówić konsultację.
+        </p>
+      </div>
+    </div>
 
     <div class="opinion-lightbox" hidden aria-hidden="true">
       <div class="opinion-lightbox__backdrop" data-opinion-close></div>
@@ -1410,7 +1538,7 @@
             data-opinion-prev
             aria-label="Poprzednia opinia"
           >
-            ‹
+            &lt;
           </button>
 
           <img class="opinion-lightbox__image" src="" alt="" />
@@ -1421,7 +1549,7 @@
             data-opinion-next
             aria-label="Następna opinia"
           >
-            ›
+            &gt;
           </button>
         </div>
 
@@ -1436,7 +1564,8 @@
         <div>
           <p class="site-footer__brand">Łukasz Jaszczur / jaszatrener.pl</p>
           <p class="site-footer__copy">
-            Sprzedażowy landing page pod prowadzenie online 1:1.
+            Oferta trenera personalnego online dla osób, które chcą osiągnąć
+            sylwetkę, z której będą dumne.
           </p>
         </div>
 
@@ -1460,7 +1589,7 @@
     </footer>
 
     <div class="mobile-cta">
-      <a class="button button--primary button--full" href="#kontakt"
+      <a class="button button--primary button--full" href="#kontakt-kanaly" data-contact-open
         >Zacznij współpracę</a
       >
     </div>

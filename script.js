@@ -8,6 +8,11 @@ const revealItems = [...document.querySelectorAll("[data-reveal]")];
 const sections = [...document.querySelectorAll("main section[id]")];
 const accentOnlyItems = [...document.querySelectorAll(".metric-card, .timeline__item")];
 const opinionButtons = [...document.querySelectorAll(".opinion-card")];
+const opinionCardWraps = [...document.querySelectorAll(".opinion-card-wrap")];
+const opinionGallery = document.querySelector(".opinion-gallery");
+const opinionGalleryStatus = document.querySelector(".opinion-gallery__status");
+const opinionGalleryPrev = document.querySelector("[data-opinion-gallery-prev]");
+const opinionGalleryNext = document.querySelector("[data-opinion-gallery-next]");
 const opinionLightbox = document.querySelector(".opinion-lightbox");
 const opinionLightboxImage = opinionLightbox?.querySelector(".opinion-lightbox__image");
 const opinionLightboxCaption = opinionLightbox?.querySelector(".opinion-lightbox__caption");
@@ -17,6 +22,10 @@ const opinionLightboxCloseButtons = [
 ];
 const opinionLightboxPrev = opinionLightbox?.querySelector("[data-opinion-prev]");
 const opinionLightboxNext = opinionLightbox?.querySelector("[data-opinion-next]");
+const contactOpenButtons = [...document.querySelectorAll("[data-contact-open]")];
+const contactChooser = document.querySelector(".contact-chooser");
+const contactChooserCloseButtons = [...document.querySelectorAll("[data-contact-close]")];
+const contactChooserLinks = [...document.querySelectorAll(".contact-chooser__card")];
 const currentYear = document.getElementById("currentYear");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const accentTargetSelector = [
@@ -35,6 +44,7 @@ const accentTargetSelector = [
 ].join(", ");
 const accentQueuedTargets = new WeakSet();
 let activeOpinionIndex = 0;
+let activeOpinionGalleryIndex = 0;
 
 const collectAccentTargets = (container) => {
   const targets = [...container.querySelectorAll(accentTargetSelector)];
@@ -75,6 +85,55 @@ const activateAccentSequence = (container) => {
 const isOpinionLightboxOpen = () =>
   Boolean(opinionLightbox && !opinionLightbox.hidden);
 
+const isContactChooserOpen = () =>
+  Boolean(contactChooser && !contactChooser.hidden);
+
+const setOpinionGalleryStatus = (index = activeOpinionGalleryIndex) => {
+  if (!opinionGalleryStatus || !opinionCardWraps.length) {
+    return;
+  }
+
+  activeOpinionGalleryIndex =
+    (index + opinionCardWraps.length) % opinionCardWraps.length;
+  opinionGalleryStatus.textContent = `${activeOpinionGalleryIndex + 1} / ${opinionCardWraps.length}`;
+};
+
+const syncOpinionGalleryIndex = () => {
+  if (!opinionGallery || !opinionCardWraps.length || window.innerWidth >= 720) {
+    return;
+  }
+
+  let closestIndex = 0;
+  let closestDistance = Number.POSITIVE_INFINITY;
+  const galleryStart = opinionGallery.scrollLeft;
+
+  opinionCardWraps.forEach((item, index) => {
+    const distance = Math.abs(item.offsetLeft - galleryStart);
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  setOpinionGalleryStatus(closestIndex);
+};
+
+const scrollOpinionGalleryToIndex = (index) => {
+  if (!opinionGallery || !opinionCardWraps.length || window.innerWidth >= 720) {
+    return;
+  }
+
+  const total = opinionCardWraps.length;
+  const nextIndex = (index + total) % total;
+  activeOpinionGalleryIndex = nextIndex;
+  opinionCardWraps[nextIndex].scrollIntoView({
+    behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+    block: "nearest",
+    inline: "start",
+  });
+  setOpinionGalleryStatus(nextIndex);
+};
+
 const setOpinionSlide = (index) => {
   if (!opinionButtons.length || !opinionLightboxImage) {
     return;
@@ -102,6 +161,11 @@ const openOpinionLightbox = (index) => {
     return;
   }
 
+  if (isContactChooserOpen()) {
+    closeContactChooser();
+  }
+
+  opinionLightbox.removeAttribute("hidden");
   setOpinionSlide(index);
   opinionLightbox.hidden = false;
   opinionLightbox.setAttribute("aria-hidden", "false");
@@ -123,7 +187,44 @@ const closeOpinionLightbox = () => {
 
   window.setTimeout(() => {
     if (!opinionLightbox.classList.contains("is-open")) {
+      opinionLightbox.setAttribute("hidden", "");
       opinionLightbox.hidden = true;
+    }
+  }, 180);
+};
+
+const openContactChooser = () => {
+  if (!contactChooser) {
+    return;
+  }
+
+  if (isOpinionLightboxOpen()) {
+    closeOpinionLightbox();
+  }
+
+  contactChooser.removeAttribute("hidden");
+  contactChooser.hidden = false;
+  contactChooser.setAttribute("aria-hidden", "false");
+  body.classList.add("contact-chooser-open");
+
+  window.requestAnimationFrame(() => {
+    contactChooser.classList.add("is-open");
+  });
+};
+
+const closeContactChooser = () => {
+  if (!contactChooser) {
+    return;
+  }
+
+  contactChooser.classList.remove("is-open");
+  contactChooser.setAttribute("aria-hidden", "true");
+  body.classList.remove("contact-chooser-open");
+
+  window.setTimeout(() => {
+    if (!contactChooser.classList.contains("is-open")) {
+      contactChooser.setAttribute("hidden", "");
+      contactChooser.hidden = true;
     }
   }, 180);
 };
@@ -154,6 +255,10 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     if (isOpinionLightboxOpen()) {
       closeOpinionLightbox();
+    }
+
+    if (isContactChooserOpen()) {
+      closeContactChooser();
     }
 
     closeNav();
@@ -187,7 +292,8 @@ faqButtons.forEach((button) => {
 });
 
 opinionButtons.forEach((button, index) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
     openOpinionLightbox(index);
   });
 });
@@ -206,6 +312,38 @@ opinionLightboxNext?.addEventListener("click", () => {
   setOpinionSlide(activeOpinionIndex + 1);
 });
 
+opinionGalleryPrev?.addEventListener("click", () => {
+  scrollOpinionGalleryToIndex(activeOpinionGalleryIndex - 1);
+});
+
+opinionGalleryNext?.addEventListener("click", () => {
+  scrollOpinionGalleryToIndex(activeOpinionGalleryIndex + 1);
+});
+
+opinionGallery?.addEventListener("scroll", () => {
+  window.requestAnimationFrame(syncOpinionGalleryIndex);
+});
+
+contactOpenButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeNav();
+    openContactChooser();
+  });
+});
+
+contactChooserCloseButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    closeContactChooser();
+  });
+});
+
+contactChooserLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    closeContactChooser();
+  });
+});
+
 document.addEventListener("keydown", (event) => {
   if (!isOpinionLightboxOpen()) {
     return;
@@ -221,6 +359,14 @@ document.addEventListener("keydown", (event) => {
     setOpinionSlide(activeOpinionIndex + 1);
   }
 });
+
+window.addEventListener("resize", () => {
+  setOpinionGalleryStatus(activeOpinionGalleryIndex);
+  syncOpinionGalleryIndex();
+});
+
+setOpinionGalleryStatus(0);
+syncOpinionGalleryIndex();
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
