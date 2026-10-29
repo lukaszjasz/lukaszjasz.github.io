@@ -28,6 +28,19 @@ const contactChooserCloseButtons = [...document.querySelectorAll("[data-contact-
 const contactChooserLinks = [...document.querySelectorAll(".contact-chooser__card")];
 const currentYear = document.getElementById("currentYear");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const coachingPicker = document.querySelector(".coaching-picker");
+const coachingForm = coachingPicker?.querySelector("form");
+const coachingSteps = [...(coachingPicker?.querySelectorAll("[data-coaching-step]") || [])];
+const coachingResult = coachingPicker?.querySelector("[data-coaching-result]");
+const coachingIntro = coachingPicker?.querySelector("[data-coaching-intro]");
+const coachingBack = coachingPicker?.querySelector("[data-coaching-back]");
+const coachingNext = coachingPicker?.querySelector("[data-coaching-next]");
+const coachingStorageKey = "jasza-coaching-picker-seen-v1";
+const coachingCooldown = 7 * 24 * 60 * 60 * 1000;
+let coachingStep = 0;
+let coachingAutoTimer;
+let coachingSeenThisVisit = false;
+let coachingReturnFocus;
 const accentTargetSelector = [
   ".section-tag",
   ".panel-card__tag",
@@ -161,6 +174,9 @@ const openOpinionLightbox = (index) => {
     return;
   }
 
+  window.clearTimeout(coachingAutoTimer);
+  coachingPicker?.close?.();
+
   if (isContactChooserOpen()) {
     closeContactChooser();
   }
@@ -198,6 +214,10 @@ const openContactChooser = () => {
     return;
   }
 
+  window.clearTimeout(coachingAutoTimer);
+  coachingSeenThisVisit = true;
+  coachingPicker?.close?.();
+
   if (isOpinionLightboxOpen()) {
     closeOpinionLightbox();
   }
@@ -209,6 +229,7 @@ const openContactChooser = () => {
 
   window.requestAnimationFrame(() => {
     contactChooser.classList.add("is-open");
+    contactChooser.querySelector("button")?.focus();
   });
 };
 
@@ -228,6 +249,138 @@ const closeContactChooser = () => {
     }
   }, 180);
 };
+
+const rememberCoachingVisit = () => {
+  coachingSeenThisVisit = true;
+  try {
+    localStorage.setItem(coachingStorageKey, String(Date.now()));
+  } catch {
+    // The popup still appears only once per visit when storage is unavailable.
+  }
+};
+
+const showCoachingStep = (index, focus = true) => {
+  coachingStep = index;
+  coachingForm.hidden = false;
+  coachingIntro.hidden = false;
+  coachingResult.hidden = true;
+  coachingSteps.forEach((step, stepIndex) => {
+    step.hidden = stepIndex !== index;
+    step.disabled = stepIndex !== index;
+  });
+  coachingPicker.querySelector("[data-coaching-step-number]").textContent = String(index + 1);
+  coachingBack.hidden = index === 0;
+  coachingNext.textContent = index === coachingSteps.length - 1 ? "Zobacz mój kolejny krok" : "Dalej →";
+  if (focus) {
+    const legend = coachingSteps[index].querySelector("legend");
+    legend.tabIndex = -1;
+    legend.focus();
+  }
+};
+
+const openCoachingPicker = () => {
+  if (typeof coachingPicker?.showModal !== "function" || coachingPicker.open || isContactChooserOpen() || isOpinionLightboxOpen()) {
+    return;
+  }
+  window.clearTimeout(coachingAutoTimer);
+  closeNav();
+  coachingReturnFocus = document.activeElement;
+  rememberCoachingVisit();
+  showCoachingStep(0, false);
+  coachingPicker.showModal();
+  body.classList.add("coaching-picker-open");
+};
+
+const showCoachingResult = () => {
+  const selected = ["goal", "experience", "support"].map((name) => {
+    const input = coachingForm.querySelector(`input[name="${name}"]:checked`);
+    return { value: input.value, label: input.closest("label").querySelector("span").textContent };
+  });
+  const [goal, , support] = selected;
+  const goalText = {
+    redukcja: "Skupmy się na redukcji i lepszej sylwetce.",
+    masa: "Zbudujmy plan na rozwój Twojej sylwetki.",
+    powrot: "Zacznijmy od planu, który wpisze się w Twoją codzienność.",
+  };
+  const supportText = {
+    prowadzenie: "Prowadzenie online 1:1 pozwoli nam regularnie analizować Twoje postępy i dostosowywać plan. Omówmy szczegóły przed rozpoczęciem współpracy.",
+    plan: "Możemy zacząć od indywidualnego planu do samodzielnej realizacji. Wspólnie ustalimy jego zakres i dopasujemy go do Twoich możliwości.",
+    rozmowa: "Porozmawiajmy o Twoim celu i ustalmy, jakiego wsparcia potrzebujesz. Termin bezpłatnej konsultacji telefonicznej uzgodnimy w wiadomości.",
+  };
+  const summary = selected.map((answer) => answer.label).join("\n");
+  coachingPicker.querySelector("[data-coaching-result-title]").textContent = goalText[goal.value];
+  coachingPicker.querySelector("[data-coaching-result-text]").textContent = supportText[support.value];
+  coachingPicker.querySelector("[data-coaching-summary]").textContent = summary;
+  const message = `Cześć Łukasz! Chcę porozmawiać o współpracy.\n\n${summary}\n\nProszę o ustalenie kolejnego kroku i terminu rozmowy.`;
+  coachingPicker.querySelector("[data-coaching-email]").href = `mailto:jasza.trener@gmail.com?subject=${encodeURIComponent("Mój cel - współpraca online")}&body=${encodeURIComponent(message)}`;
+  coachingForm.hidden = true;
+  coachingIntro.hidden = true;
+  coachingResult.hidden = false;
+  const title = coachingPicker.querySelector("[data-coaching-result-title]");
+  title.tabIndex = -1;
+  title.focus();
+};
+
+const scheduleCoachingPicker = () => {
+  window.clearTimeout(coachingAutoTimer);
+  if (typeof coachingPicker?.showModal !== "function" || document.hidden || coachingSeenThisVisit) {
+    return;
+  }
+  try {
+    const lastSeen = Number(localStorage.getItem(coachingStorageKey));
+    if (lastSeen && Date.now() - lastSeen < coachingCooldown) {
+      return;
+    }
+  } catch {
+    // Storage restrictions must not prevent the page from working.
+  }
+  coachingAutoTimer = window.setTimeout(() => {
+    if (document.hidden || body.classList.contains("nav-open") || document.activeElement?.matches("input, textarea, select")) {
+      return;
+    }
+    openCoachingPicker();
+  }, 8000);
+};
+
+if (typeof coachingPicker?.showModal === "function") {
+  document.querySelectorAll("[data-coaching-open]").forEach((button) => {
+    button.hidden = false;
+    button.addEventListener("click", openCoachingPicker);
+  });
+  coachingPicker.querySelectorAll("[data-coaching-close]").forEach((button) => {
+    button.addEventListener("click", () => coachingPicker.close());
+  });
+  coachingPicker.addEventListener("click", (event) => {
+    const rect = coachingPicker.getBoundingClientRect();
+    if (event.target === coachingPicker && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) {
+      coachingPicker.close();
+    }
+  });
+  coachingPicker.addEventListener("close", () => {
+    body.classList.remove("coaching-picker-open");
+    if (!isContactChooserOpen() && !isOpinionLightboxOpen()) {
+      coachingReturnFocus?.focus?.();
+    }
+  });
+  coachingForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!coachingForm.reportValidity()) {
+      return;
+    }
+    if (coachingStep < coachingSteps.length - 1) {
+      showCoachingStep(coachingStep + 1);
+    } else {
+      showCoachingResult();
+    }
+  });
+  coachingBack.addEventListener("click", () => showCoachingStep(coachingStep - 1));
+  coachingPicker.querySelector("[data-coaching-restart]").addEventListener("click", () => showCoachingStep(0));
+  coachingPicker.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => coachingPicker.close());
+  });
+  document.addEventListener("visibilitychange", scheduleCoachingPicker);
+  scheduleCoachingPicker();
+}
 
 if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
@@ -420,3 +573,153 @@ const sectionObserver = new IntersectionObserver(
 );
 
 sections.forEach((section) => sectionObserver.observe(section));
+
+const initHeroCarousel = () => {
+  const carousel = document.querySelector(".hero-carousel");
+  const slides = [...(carousel?.querySelectorAll("[data-hero-slide]") || [])];
+  if (!carousel || slides.length < 2) {
+    return;
+  }
+
+  const controls = carousel.querySelector(".hero-carousel__controls");
+  const pauseButton = carousel.querySelector("[data-hero-pause]");
+  const dots = [...carousel.querySelectorAll("[data-hero-select]")];
+  const counter = carousel.querySelector("[data-hero-counter]");
+  let activeIndex = 0;
+  let timer;
+  let requestId = 0;
+  let visible = false;
+  let paused = prefersReducedMotion.matches;
+  let pointerPaused = false;
+  let focusPaused = false;
+
+  const updatePauseButton = () => {
+    pauseButton.textContent = paused ? "Odtwórz" : "Pauza";
+    pauseButton.setAttribute("aria-pressed", String(paused));
+    pauseButton.setAttribute("aria-label", paused ? "Wznów automatyczną zmianę zdjęć" : "Zatrzymaj automatyczną zmianę zdjęć");
+  };
+
+  const prepareSlide = async (index) => {
+    const image = slides[index].querySelector("img");
+    if (!image.getAttribute("src")) {
+      image.loading = "eager";
+      image.src = image.dataset.heroSrc;
+    }
+    try {
+      await image.decode();
+      return image.naturalWidth > 0;
+    } catch {
+      return false;
+    }
+  };
+
+  const canRotate = () =>
+    visible && !paused && !pointerPaused && !focusPaused && !document.hidden &&
+    !coachingPicker?.open && !isContactChooserOpen() && !isOpinionLightboxOpen() &&
+    !body.classList.contains("nav-open");
+
+  const schedule = () => {
+    window.clearTimeout(timer);
+    if (canRotate()) {
+      timer = window.setTimeout(() => showSlide(activeIndex + 1), 6000);
+    }
+  };
+
+  const showSlide = async (index, manual = false) => {
+    window.clearTimeout(timer);
+    if (manual) {
+      paused = true;
+      updatePauseButton();
+    }
+    const nextIndex = (index + slides.length) % slides.length;
+    const currentRequest = ++requestId;
+    const ready = await prepareSlide(nextIndex);
+    if (currentRequest !== requestId) {
+      return;
+    }
+    if (!ready) {
+      schedule();
+      return;
+    }
+    if (!manual && !canRotate()) {
+      schedule();
+      return;
+    }
+
+    activeIndex = nextIndex;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === activeIndex;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+      dots[slideIndex].setAttribute("aria-pressed", String(active));
+    });
+    counter.textContent = `${activeIndex + 1} / ${slides.length}`;
+    if (visible) {
+      void prepareSlide((activeIndex + 1) % slides.length);
+    }
+    schedule();
+  };
+
+  dots.forEach((button) => {
+    button.addEventListener("click", () => showSlide(Number(button.dataset.heroSelect), true));
+  });
+  pauseButton.addEventListener("click", () => {
+    paused = !paused;
+    if (!paused) {
+      pointerPaused = false;
+      focusPaused = false;
+    }
+    updatePauseButton();
+    schedule();
+  });
+  carousel.addEventListener("pointerenter", () => {
+    pointerPaused = true;
+    schedule();
+  });
+  carousel.addEventListener("pointerleave", () => {
+    pointerPaused = false;
+    schedule();
+  });
+  carousel.addEventListener("focusin", () => {
+    focusPaused = true;
+    schedule();
+  });
+  carousel.addEventListener("focusout", (event) => {
+    if (!carousel.contains(event.relatedTarget)) {
+      focusPaused = false;
+      schedule();
+    }
+  });
+  document.addEventListener("visibilitychange", schedule);
+  prefersReducedMotion.addEventListener("change", () => {
+    if (prefersReducedMotion.matches) {
+      paused = true;
+      updatePauseButton();
+    }
+    schedule();
+  });
+
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting && entries[0].intersectionRatio >= 0.2;
+    if (visible) {
+      void prepareSlide((activeIndex + 1) % slides.length);
+    }
+    schedule();
+  }, { threshold: 0.2 });
+  visibilityObserver.observe(carousel);
+
+  const overlayObserver = new MutationObserver(schedule);
+  overlayObserver.observe(body, { attributes: true, attributeFilter: ["class"] });
+  [contactChooser, opinionLightbox].forEach((overlay) => {
+    if (overlay) {
+      overlayObserver.observe(overlay, { attributes: true, attributeFilter: ["hidden"] });
+    }
+  });
+  if (coachingPicker) {
+    overlayObserver.observe(coachingPicker, { attributes: true, attributeFilter: ["open"] });
+  }
+  updatePauseButton();
+  controls.hidden = false;
+};
+
+initHeroCarousel();
