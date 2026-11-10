@@ -1011,7 +1011,15 @@ body.nav-open .nav-toggle span:last-child {
 }
 
 .hero-carousel {
+  aspect-ratio: auto;
   isolation: isolate;
+}
+
+.hero-carousel__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
 }
 
 .hero-carousel__slide {
@@ -1046,19 +1054,13 @@ body.nav-open .nav-toggle span:last-child {
 }
 
 .hero-carousel__controls {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  right: 0.75rem;
-  z-index: 3;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  background: rgba(4, 10, 17, 0.8);
-  backdrop-filter: blur(10px);
+  min-height: 3.5rem;
+  padding: 0.35rem 0.75rem;
+  border-top: 1px solid var(--line-strong);
+  background: #0b141d;
 }
 
 .hero-carousel__pause,
@@ -1066,7 +1068,7 @@ body.nav-open .nav-toggle span:last-child {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border: 0;
   border-radius: 999px;
   color: #fff;
@@ -1266,28 +1268,80 @@ body.nav-open .nav-toggle span:last-child {
   color: var(--muted);
 }
 
-.trust-photo--before,
-.trust-photo--after,
-.trust-photo--current {
-  width: min(100%, 19.5rem);
+.trust-layout,
+.trust-intro,
+.trust-conclusion {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.trust-intro,
+.trust-journey,
+.trust-conclusion {
+  width: min(100%, 52rem);
+  margin: 0 auto;
+}
+
+.trust-intro {
+  column-gap: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.trust-journey {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.trust-photo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   min-width: 0;
-  justify-self: center;
-  align-self: start;
+  margin: 0;
 }
 
-.trust-photo--before .photo-card__image,
-.trust-photo--after .photo-card__image,
-.trust-photo--current .photo-card__image {
-  min-height: 0;
+.trust-photo__frame {
+  flex: none;
+  width: 100%;
   aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--bg-strong);
 }
 
-.trust-photo--after .photo-card__image {
-  object-position: center 18%;
+.trust-photo .photo-card__image {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
 }
 
 .trust-photo .photo-card__caption {
-  min-height: 5.6rem;
+  flex: 1;
+  padding: 1rem 1.15rem 1.15rem;
+  border-top: 1px solid var(--line);
+}
+
+.trust-photo__label {
+  display: block;
+  color: var(--accent-warm);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trust-photo .photo-card__caption p {
+  margin: 0.65rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.trust-photo--current {
+  width: min(100%, 25.25rem);
+  justify-self: center;
 }
 
 .hero-metrics,
@@ -2672,11 +2726,6 @@ body.coaching-picker-open .mobile-cta {
     margin-top: 0.2rem;
   }
 
-  .split-panel--trust {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
   .contact-chooser {
     padding: 0.75rem;
   }
@@ -2723,75 +2772,16 @@ body.coaching-picker-open .mobile-cta {
     right: calc(50% - 3.4rem);
   }
 
-  .split-panel--trust > .split-panel__main,
-  .split-panel--trust > .stacked-cards {
-    display: contents;
-  }
-
-  .trust-block--benefits {
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-
-  .trust-block--custom {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-
-  .trust-photo--before {
-    grid-column: 1;
-    grid-row: 3;
-  }
-
-  .trust-photo--after {
-    grid-column: 2;
-    grid-row: 3;
-  }
-
-  .trust-block--credibility {
-    grid-column: 1 / -1;
-    grid-row: 4;
-  }
-
-  .trust-photo--current {
-    grid-column: 1 / -1;
-    grid-row: 5;
-  }
-
-  .trust-photo .photo-card__caption {
+  .trust-journey .photo-card__caption p {
     display: none;
   }
 
-  .photo-card--journey-start::after,
-  .photo-card--journey-current::after,
-  .photo-card--journey-transformation::after {
-    position: absolute;
-    left: 0.75rem;
-    bottom: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.38rem 0.7rem;
-    border: 1px solid rgba(43, 149, 255, 0.28);
-    border-radius: 999px;
-    background: rgba(5, 9, 10, 0.74);
-    backdrop-filter: blur(10px);
-    color: var(--text);
-    font-family: "Barlow Condensed", sans-serif;
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  .trust-journey .photo-card__caption {
+    padding: 0.85rem 0.65rem;
   }
 
-  .photo-card--journey-start::after {
-    content: "Początek";
-  }
-
-  .photo-card--journey-current::after {
-    content: "Aktualnie";
-  }
-
-  .photo-card--journey-transformation::after {
-    content: "Droga do tytułu";
+  .trust-journey .trust-photo__label {
+    font-size: 0.95rem;
   }
 }
 
@@ -2806,6 +2796,14 @@ body.coaching-picker-open .mobile-cta {
 }
 
 @media (min-width: 720px) {
+  .trust-intro {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trust-photo--current {
+    width: calc((100% - clamp(0.75rem, 2vw, 1.5rem)) / 2);
+  }
+
   .hero__grid.container {
     width: min(calc(100% - 3rem), 1440px);
   }
