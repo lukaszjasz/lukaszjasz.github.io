@@ -1316,6 +1316,11 @@ body.nav-open .nav-toggle span:last-child {
   object-position: center;
 }
 
+.trust-photo--before .photo-card__image {
+  object-fit: cover;
+  object-position: center 35%;
+}
+
 .trust-photo .photo-card__caption {
   flex: 1;
   padding: 1rem 1.15rem 1.15rem;
