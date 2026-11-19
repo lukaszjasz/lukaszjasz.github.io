@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://jaszatrener.pl/sitemap.xml
