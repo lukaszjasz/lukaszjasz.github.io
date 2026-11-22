@@ -1450,6 +1450,295 @@ body.nav-open .nav-toggle span:last-child {
   gap: 1rem;
 }
 
+.qualification-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.qualification-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.qualification-card__preview {
+  display: block;
+  background: #fff;
+}
+
+.qualification-card__preview img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3508 / 2481;
+  object-fit: contain;
+}
+
+.qualification-card__zoom {
+  display: block;
+  padding: 0.65rem 1rem;
+  border-block: 1px solid var(--line-strong);
+  background: #102538;
+  color: #b5dcff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.qualification-card__preview:hover .qualification-card__zoom {
+  background: #193a57;
+  color: #fff;
+}
+
+.qualification-card__preview:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: -3px;
+}
+
+.qualification-card__body {
+  padding: 1.3rem;
+}
+
+.qualification-card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+}
+
+.qualification-card__body p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+}
+
+.qualification-card__body .qualification-card__meta {
+  color: var(--accent-warm);
+  font-size: 0.875rem;
+}
+
+.goal-list {
+  display: grid;
+  gap: 1.2rem;
+  margin: 1.4rem 0;
+}
+
+.goal-list > div {
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+
+.goal-list dt {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.goal-list dd {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.goal-photo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--bg-strong);
+}
+
+.goal-photo__frame {
+  flex: 1;
+  position: relative;
+  min-height: 27rem;
+  overflow: hidden;
+}
+
+.goal-photo__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  transform: scale(1.08);
+  transform-origin: center 55%;
+}
+
+.goal-photo figcaption {
+  position: relative;
+  padding: 1.3rem;
+  border-top: 1px solid var(--line);
+  background: #0d1b27;
+}
+
+.goal-photo figcaption strong {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+
+.goal-photo figcaption p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+}
+
+.in-person {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.in-person__content > p {
+  color: var(--muted);
+}
+
+.section-heading .in-person__location {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  color: var(--accent-warm);
+  font-weight: 800;
+}
+
+.in-person__location svg {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.in-person__content .check-list {
+  margin: 1.5rem 0 2rem;
+}
+
+.in-person__note {
+  max-width: 32rem;
+  font-size: 0.875rem;
+}
+
+.in-person__photo {
+  width: min(100%, 32rem);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+
+.in-person__photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.in-person__photo figcaption {
+  padding: 0.9rem 1.2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+body.certificate-viewer-open {
+  overflow: hidden;
+}
+
+.certificate-viewer {
+  width: min(calc(100% - 2rem), 72rem);
+  max-height: calc(100dvh - 2rem);
+  padding: clamp(0.85rem, 2vw, 1.5rem);
+  overflow: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  color: var(--text);
+  background: #0b151e;
+  box-shadow: var(--shadow-lg);
+}
+
+.certificate-viewer::backdrop {
+  background: rgba(2, 7, 11, 0.9);
+}
+
+.certificate-viewer__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.certificate-viewer__top > div {
+  flex: 1 1 15rem;
+  min-width: 0;
+}
+
+.certificate-viewer h2 {
+  margin: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.1;
+}
+
+.certificate-viewer__top p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.certificate-viewer__image {
+  width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 17rem);
+  object-fit: contain;
+  background: #fff;
+}
+
+.certificate-viewer__button {
+  min-height: 2.75rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background: var(--surface-strong);
+  cursor: pointer;
+}
+
+.certificate-viewer__button:hover {
+  border-color: var(--accent-warm);
+}
+
+.certificate-viewer__button:focus-visible,
+.certificate-viewer__original:focus-visible {
+  outline: 2px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.certificate-viewer__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.certificate-viewer__controls span {
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.certificate-viewer__original {
+  display: block;
+  width: fit-content;
+  margin: 0.5rem auto 0;
+  padding: 0.5rem 0;
+  color: var(--accent-warm);
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .fit-card--warning,
 .audience-highlight--warning {
   border-color: rgba(255, 129, 84, 0.22);
@@ -2801,6 +3090,10 @@ body.coaching-picker-open .mobile-cta {
 }
 
 @media (min-width: 720px) {
+  .qualification-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .trust-intro {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2951,6 +3244,10 @@ body.coaching-picker-open .mobile-cta {
 
   .fit-grid {
     grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
+  }
+
+  .in-person {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   }
 
   .feature-grid {

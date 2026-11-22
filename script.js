@@ -29,6 +29,7 @@ const contactChooserLinks = [...document.querySelectorAll(".contact-chooser__car
 const currentYear = document.getElementById("currentYear");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const coachingPicker = document.querySelector(".coaching-picker");
+const certificateViewer = document.querySelector(".certificate-viewer");
 const coachingForm = coachingPicker?.querySelector("form");
 const coachingSteps = [...(coachingPicker?.querySelectorAll("[data-coaching-step]") || [])];
 const coachingResult = coachingPicker?.querySelector("[data-coaching-result]");
@@ -176,6 +177,7 @@ const openOpinionLightbox = (index) => {
 
   window.clearTimeout(coachingAutoTimer);
   coachingPicker?.close?.();
+  certificateViewer?.close?.();
 
   if (isContactChooserOpen()) {
     closeContactChooser();
@@ -217,6 +219,7 @@ const openContactChooser = () => {
   window.clearTimeout(coachingAutoTimer);
   coachingSeenThisVisit = true;
   coachingPicker?.close?.();
+  certificateViewer?.close?.();
 
   if (isOpinionLightboxOpen()) {
     closeOpinionLightbox();
@@ -279,7 +282,7 @@ const showCoachingStep = (index, focus = true) => {
 };
 
 const openCoachingPicker = () => {
-  if (typeof coachingPicker?.showModal !== "function" || coachingPicker.open || isContactChooserOpen() || isOpinionLightboxOpen()) {
+  if (typeof coachingPicker?.showModal !== "function" || coachingPicker.open || certificateViewer?.open || isContactChooserOpen() || isOpinionLightboxOpen()) {
     return;
   }
   window.clearTimeout(coachingAutoTimer);
@@ -300,6 +303,7 @@ const showCoachingResult = () => {
   const goalText = {
     redukcja: "Skupmy się na redukcji i lepszej sylwetce.",
     masa: "Zbudujmy plan na rozwój Twojej sylwetki.",
+    rekompozycja: "Sprawdźmy, jak podejść do rekompozycji Twojej sylwetki.",
     powrot: "Zacznijmy od planu, który wpisze się w Twoją codzienność.",
   };
   const supportText = {
@@ -358,7 +362,7 @@ if (typeof coachingPicker?.showModal === "function") {
   });
   coachingPicker.addEventListener("close", () => {
     body.classList.remove("coaching-picker-open");
-    if (!isContactChooserOpen() && !isOpinionLightboxOpen()) {
+    if (!isContactChooserOpen() && !isOpinionLightboxOpen() && !certificateViewer?.open) {
       coachingReturnFocus?.focus?.();
     }
   });
@@ -615,7 +619,7 @@ const initHeroCarousel = () => {
 
   const canRotate = () =>
     visible && !paused && !pointerPaused && !focusPaused && !document.hidden &&
-    !coachingPicker?.open && !isContactChooserOpen() && !isOpinionLightboxOpen() &&
+    !coachingPicker?.open && !certificateViewer?.open && !isContactChooserOpen() && !isOpinionLightboxOpen() &&
     !body.classList.contains("nav-open");
 
   const schedule = () => {
@@ -722,4 +726,71 @@ const initHeroCarousel = () => {
   controls.hidden = false;
 };
 
+const initCertificateViewer = () => {
+  const links = [...document.querySelectorAll("[data-certificate-open]")];
+  if (typeof certificateViewer?.showModal !== "function" || !links.length) {
+    return;
+  }
+
+  const image = certificateViewer.querySelector("img");
+  const title = certificateViewer.querySelector("h2");
+  const meta = certificateViewer.querySelector("[data-certificate-meta]");
+  const status = certificateViewer.querySelector("[data-certificate-status]");
+  const original = certificateViewer.querySelector("[data-certificate-original]");
+  let activeIndex = 0;
+  let returnFocus;
+
+  const showCertificate = (index) => {
+    activeIndex = (index + links.length) % links.length;
+    const link = links[activeIndex];
+    title.textContent = link.dataset.certificateTitle;
+    meta.textContent = link.dataset.certificateMeta;
+    image.alt = link.querySelector("img").alt;
+    image.src = link.href;
+    original.href = link.href;
+    status.textContent = `${activeIndex + 1} / ${links.length}`;
+  };
+
+  links.forEach((link, index) => {
+    link.addEventListener("click", (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      event.preventDefault();
+      window.clearTimeout(coachingAutoTimer);
+      coachingSeenThisVisit = true;
+      returnFocus = link;
+      coachingPicker?.close?.();
+      if (isContactChooserOpen()) closeContactChooser();
+      if (isOpinionLightboxOpen()) closeOpinionLightbox();
+      showCertificate(index);
+      certificateViewer.showModal();
+      body.classList.add("certificate-viewer-open");
+    });
+  });
+
+  certificateViewer.querySelector("[data-certificate-close]").addEventListener("click", () => certificateViewer.close());
+  certificateViewer.querySelector("[data-certificate-prev]").addEventListener("click", () => showCertificate(activeIndex - 1));
+  certificateViewer.querySelector("[data-certificate-next]").addEventListener("click", () => showCertificate(activeIndex + 1));
+  certificateViewer.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      showCertificate(activeIndex + (event.key === "ArrowRight" ? 1 : -1));
+    }
+  });
+  certificateViewer.addEventListener("click", (event) => {
+    const rect = certificateViewer.getBoundingClientRect();
+    if (event.target === certificateViewer && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) {
+      certificateViewer.close();
+    }
+  });
+  certificateViewer.addEventListener("close", () => {
+    body.classList.remove("certificate-viewer-open");
+    if (!coachingPicker?.open && !isContactChooserOpen() && !isOpinionLightboxOpen()) {
+      returnFocus?.focus({ preventScroll: true });
+    }
+  });
+};
+
+initCertificateViewer();
 initHeroCarousel();
