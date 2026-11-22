@@ -29,7 +29,7 @@
     />
     <meta name="theme-color" content="#0a0f10" />
     <title>Trener personalny online 1:1 | Łukasz Jaszczur</title>
-    <link rel="stylesheet" href="./styles.css?v=20261122-layout-2" />
+    <link rel="stylesheet" href="./styles.css?v=20261122-reviews-1" />
   </head>
   <body>
     <a class="skip-link" href="#hero">Przejdź do treści</a>
@@ -1047,17 +1047,26 @@
       <section class="section section--contrast" id="opinie">
         <div class="container">
           <div class="section-heading" data-reveal>
-            <span class="section-tag">Społeczny dowód słuszności</span>
+            <span class="section-tag">Z pierwszej ręki</span>
             <h2>Opinie moich podopiecznych</h2>
             <p>
               Efekty to jedno. Ale najważniejsze jest to, jak wygląda współpraca
-              na co dzień.
+              na co dzień. Tak opisują ją osoby, które mi zaufały.
             </p>
           </div>
 
-          <div class="opinions-toolbar" data-reveal>
-            <span class="opinions-toolbar__pill">8 realnych screenów opinii</span>
-            <span class="opinions-toolbar__pill">Kliknij, aby powiększyć</span>
+          <div class="review-source" data-reveal>
+            <div class="review-source__summary">
+              <span class="review-source__label">Rekomendacje na Facebooku</span>
+              <strong>100% poleceń <span>z 25 opinii</span></strong>
+            </div>
+            <a
+              class="button button--ghost"
+              href="https://www.facebook.com/jasza.trener/reviews/?id=61566884121724&amp;sk=reviews"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zobacz wszystkie opinie na Facebooku (nowa karta)"
+            >Zobacz wszystkie opinie</a>
           </div>
 
           <div class="opinion-gallery-controls" data-reveal>
@@ -1066,254 +1075,180 @@
               type="button"
               data-opinion-gallery-prev
               aria-label="Poprzednia opinia"
-            >
-              &lt;
-            </button>
-            <span class="opinion-gallery__status" aria-live="polite">1 / 8</span>
+              aria-controls="review-gallery"
+            >Wstecz</button>
+            <span class="opinion-gallery__status" aria-live="polite" aria-atomic="true">1 / 6</span>
             <button
               class="opinion-gallery__control"
               type="button"
               data-opinion-gallery-next
               aria-label="Następna opinia"
-            >
-              &gt;
-            </button>
+              aria-controls="review-gallery"
+            >Dalej</button>
           </div>
 
-          <div class="opinion-gallery" aria-label="Galeria opinii podopiecznych">
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-01-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 1"
-                data-opinion-src="./assets/opinia-01-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 1 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 01</span>
-                  <span class="opinion-card__hint">Powiększ</span>
+          <div class="opinion-gallery review-grid" id="review-gallery" aria-label="Wybrane opinie podopiecznych">
+            <article class="opinion-card-wrap review-card" data-reveal>
+              <div class="review-card__heading">
+                <span class="review-card__topic">Technika i bezpieczeństwo</span>
+                <span class="review-card__mark" aria-hidden="true">&ldquo;</span>
+              </div>
+              <blockquote class="review-card__quote">
+                <p>Łukasz zwraca ogromną uwagę na technikę, co daje mi poczucie bezpieczeństwa. Najlepszy trener!</p>
+              </blockquote>
+              <footer class="review-card__footer">
+                <div class="review-card__author">
+                  <span class="review-card__initial" aria-hidden="true">M</span>
+                  <div>
+                    <strong>Magda</strong>
+                    <time datetime="2026-11-10">10.11.2026</time>
+                  </div>
                 </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-01-zanonimizowana.png"
-                    alt="Opinia podopiecznego 1 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
+                <a
+                  class="review-card__link"
+                  href="https://www.facebook.com/m.malkinska/posts/pfbid0bnLB5BG3zKQGTS9uspXX8uZA8L54oXsjZG982LxSQdbCkmkt2qo1HnKUgCn4PkJfl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pełna opinia: Magda, Facebook (nowa karta)"
+                >Pełna opinia</a>
+              </footer>
             </article>
 
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-02-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 2"
-                data-opinion-src="./assets/opinia-02-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 2 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 02</span>
-                  <span class="opinion-card__hint">Powiększ</span>
+            <article class="opinion-card-wrap review-card" data-reveal>
+              <div class="review-card__heading">
+                <span class="review-card__topic">Wsparcie na każdym etapie</span>
+                <span class="review-card__mark" aria-hidden="true">&ldquo;</span>
+              </div>
+              <blockquote class="review-card__quote">
+                <p>zawsze mogę liczyć na wsparcie Łukasza, konkretne informacje zwrotne, opiekę i sugestie.</p>
+              </blockquote>
+              <footer class="review-card__footer">
+                <div class="review-card__author">
+                  <span class="review-card__initial" aria-hidden="true">D</span>
+                  <div>
+                    <strong>Darek</strong>
+                    <time datetime="2026-09-09">09.09.2026</time>
+                  </div>
                 </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-02-zanonimizowana.png"
-                    alt="Opinia podopiecznego 2 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
+                <a
+                  class="review-card__link"
+                  href="https://www.facebook.com/permalink.php?story_fbid=pfbid0t93FVkeEjjPFbfuPmbzvZ43RF8KAQCays9NyjdLGj1VxnaCST7DmUTxyGi4QYmPnl&amp;id=61574197007204"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pełna opinia: Darek, Facebook (nowa karta)"
+                >Pełna opinia</a>
+              </footer>
             </article>
 
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-03-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 3"
-                data-opinion-src="./assets/opinia-03-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 3 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 03</span>
-                  <span class="opinion-card__hint">Powiększ</span>
+            <article class="opinion-card-wrap review-card" data-reveal>
+              <div class="review-card__heading">
+                <span class="review-card__topic">Plan dopasowany do możliwości</span>
+                <span class="review-card__mark" aria-hidden="true">&ldquo;</span>
+              </div>
+              <blockquote class="review-card__quote">
+                <p>Dobrze przygotowany plan treningowy dostosowany do potrzeb i możliwości podopiecznego, fun z treningu !</p>
+              </blockquote>
+              <footer class="review-card__footer">
+                <div class="review-card__author">
+                  <span class="review-card__initial" aria-hidden="true">E</span>
+                  <div>
+                    <strong>Emil</strong>
+                    <time datetime="2026-08-25">25.08.2026</time>
+                  </div>
                 </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-03-zanonimizowana.png"
-                    alt="Opinia podopiecznego 3 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
+                <a
+                  class="review-card__link"
+                  href="https://www.facebook.com/emil.sadza/posts/pfbid02iuoKU29XXaXZqddjoHR8tnQmUXBJ3kgTetchM3KPdGY1FPpA24imxn2idr4wXBLol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pełna opinia: Emil, Facebook (nowa karta)"
+                >Pełna opinia</a>
+              </footer>
             </article>
 
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-04-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 4"
-                data-opinion-src="./assets/opinia-04-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 4 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 04</span>
-                  <span class="opinion-card__hint">Powiększ</span>
+            <article class="opinion-card-wrap review-card" data-reveal>
+              <div class="review-card__heading">
+                <span class="review-card__topic">Podejście bez presji</span>
+                <span class="review-card__mark" aria-hidden="true">&ldquo;</span>
+              </div>
+              <blockquote class="review-card__quote">
+                <p>trener Łukasz jest bardzo wyrozumiały i miły nie narzuca presji i dba o swoich podopiecznych&hellip;</p>
+              </blockquote>
+              <footer class="review-card__footer">
+                <div class="review-card__author">
+                  <span class="review-card__initial" aria-hidden="true">D</span>
+                  <div>
+                    <strong>Dawid</strong>
+                    <time datetime="2026-11-09">09.11.2026</time>
+                  </div>
                 </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-04-zanonimizowana.png"
-                    alt="Opinia podopiecznego 4 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
+                <a
+                  class="review-card__link"
+                  href="https://www.facebook.com/dawid.klis.10/posts/pfbid0dcUyiwDtXYkG1sP5PxMCW4jYM7jjMrFsTPGMfCWFRNWfa4sVgdg5ZzSB6J147G1ul"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pełna opinia: Dawid, Facebook (nowa karta)"
+                >Pełna opinia</a>
+              </footer>
             </article>
 
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-05-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 5"
-                data-opinion-src="./assets/opinia-05-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 5 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 05</span>
-                  <span class="opinion-card__hint">Powiększ</span>
+            <article class="opinion-card-wrap review-card" data-reveal>
+              <div class="review-card__heading">
+                <span class="review-card__topic">Wiedza i konkretne działanie</span>
+                <span class="review-card__mark" aria-hidden="true">&ldquo;</span>
+              </div>
+              <blockquote class="review-card__quote">
+                <p>polecam współpracę z Łukaszem, trener wie co robić i jak się do tego zabrać</p>
+              </blockquote>
+              <footer class="review-card__footer">
+                <div class="review-card__author">
+                  <span class="review-card__initial" aria-hidden="true">P</span>
+                  <div>
+                    <strong>Paweł</strong>
+                    <time datetime="2026-11-11">11.11.2026</time>
+                  </div>
                 </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-05-zanonimizowana.png"
-                    alt="Opinia podopiecznego 5 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
+                <a
+                  class="review-card__link"
+                  href="https://www.facebook.com/permalink.php?story_fbid=pfbid03pALP3jLHvDH3YenmyQsDErVC71wF1VPUBMv3zQbrjXhjzfWrmCSKHeDLLm1DSUcl&amp;id=100002375948514"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pełna opinia: Paweł, Facebook (nowa karta)"
+                >Pełna opinia</a>
+              </footer>
             </article>
 
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-06-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 6"
-                data-opinion-src="./assets/opinia-06-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 6 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 06</span>
-                  <span class="opinion-card__hint">Powiększ</span>
+            <article class="opinion-card-wrap review-card" data-reveal>
+              <div class="review-card__heading">
+                <span class="review-card__topic">Kontakt i postępy</span>
+                <span class="review-card__mark" aria-hidden="true">&ldquo;</span>
+              </div>
+              <blockquote class="review-card__quote">
+                <p>Polecam trenera, dobry i regularny kontakt, porządne podejście jako trener. Udało mi się zrobić progress.</p>
+              </blockquote>
+              <footer class="review-card__footer">
+                <div class="review-card__author">
+                  <span class="review-card__initial" aria-hidden="true">K</span>
+                  <div>
+                    <strong>Kamil</strong>
+                    <time datetime="2026-08-25">25.08.2026</time>
+                  </div>
                 </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-06-zanonimizowana.png"
-                    alt="Opinia podopiecznego 6 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
-            </article>
-
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-07-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 7"
-                data-opinion-src="./assets/opinia-07-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 7 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 07</span>
-                  <span class="opinion-card__hint">Powiększ</span>
-                </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-07-zanonimizowana.png"
-                    alt="Opinia podopiecznego 7 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
-            </article>
-
-            <article class="opinion-card-wrap" data-reveal>
-              <a
-                class="opinion-card"
-                href="./assets/opinia-08-zanonimizowana.png"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Otwórz opinię podopiecznego 8"
-                data-opinion-src="./assets/opinia-08-zanonimizowana.png"
-                data-opinion-alt="Opinia podopiecznego 8 - screen rekomendacji"
-                data-opinion-caption="Realny screen rekomendacji od podopiecznego."
-              >
-                <div class="opinion-card__header">
-                  <span class="opinion-card__label">Rekomendacja 08</span>
-                  <span class="opinion-card__hint">Powiększ</span>
-                </div>
-                <div class="opinion-card__frame">
-                  <img
-                    class="opinion-card__image"
-                    src="./assets/opinia-08-zanonimizowana.png"
-                    alt="Opinia podopiecznego 8 - screen rekomendacji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </a>
+                <a
+                  class="review-card__link"
+                  href="https://www.facebook.com/kamil.tarapata.1/posts/pfbid0AwXEJ9QJAvgjHZXqGRv1RZ4LW9nbn9P7NntPXks334wfChtQyarvsNV4enCt5bSfl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pełna opinia: Kamil, Facebook (nowa karta)"
+                >Pełna opinia</a>
+              </footer>
             </article>
           </div>
 
-          <p class="opinions-note" data-reveal>
-            To są realne screeny rekomendacji od osób, które przeszły przez ten
-            proces.
+          <p class="opinions-note review-note" data-reveal>
+            Wybrane fragmenty publicznych rekomendacji z Facebooka.
+            Pod każdą kartą znajdziesz link do pełnej opinii.
           </p>
-
-          <div class="opinions-close" data-reveal>
-            <p>
-              To nie jest przypadek. To efekt systemu, indywidualnego podejścia
-              i konsekwentnej pracy.
-            </p>
-            <p>
-              Większość osób, które trafiają do mnie, wcześniej próbowała
-              działać samodzielnie - bez efektów. Różnica pojawia się wtedy,
-              gdy w końcu mają plan i prowadzenie.
-            </p>
-          </div>
         </div>
       </section>
       <section class="section" id="faq">
