@@ -792,5 +792,69 @@ const initCertificateViewer = () => {
   });
 };
 
+const initProcessNotice = () => {
+  const notice = document.querySelector(".process-notice");
+  const processHeading = document.querySelector("#jak-to-dziala h2");
+  if (!notice || !processHeading) {
+    return;
+  }
+
+  const storageKey = "jasza-process-notice-seen-v1";
+  try {
+    if (sessionStorage.getItem(storageKey)) return;
+  } catch {
+    // The reminder also works without browser storage.
+  }
+
+  let ready = false;
+  let completed = false;
+  let viewedTimer;
+  const syncVisibility = () => {
+    const blocked = document.hidden || coachingPicker?.open || certificateViewer?.open ||
+      isContactChooserOpen() || isOpinionLightboxOpen() || body.classList.contains("nav-open");
+    notice.hidden = !ready || completed || Boolean(blocked);
+  };
+  const finish = () => {
+    completed = true;
+    notice.hidden = true;
+    window.clearTimeout(timer);
+    window.clearTimeout(viewedTimer);
+    headingObserver.disconnect();
+    overlayObserver.disconnect();
+    document.removeEventListener("visibilitychange", syncVisibility);
+    try {
+      sessionStorage.setItem(storageKey, "1");
+    } catch {
+      // The in-memory flag still prevents another reminder on this page.
+    }
+  };
+
+  const timer = window.setTimeout(() => {
+    ready = true;
+    syncVisibility();
+  }, 45000);
+  const headingObserver = new IntersectionObserver((entries) => {
+    window.clearTimeout(viewedTimer);
+    if (entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.5)) {
+      // Passing the heading during a quick scroll is not the same as reading it.
+      viewedTimer = window.setTimeout(finish, 2000);
+    }
+  }, { threshold: 0.5 });
+  headingObserver.observe(processHeading);
+
+  const overlayObserver = new MutationObserver(syncVisibility);
+  overlayObserver.observe(body, { attributes: true, attributeFilter: ["class"] });
+  [contactChooser, opinionLightbox].forEach((overlay) => {
+    if (overlay) overlayObserver.observe(overlay, { attributes: true, attributeFilter: ["hidden"] });
+  });
+  [coachingPicker, certificateViewer].forEach((overlay) => {
+    if (overlay) overlayObserver.observe(overlay, { attributes: true, attributeFilter: ["open"] });
+  });
+  document.addEventListener("visibilitychange", syncVisibility);
+  notice.querySelector("[data-process-notice-close]").addEventListener("click", finish);
+  notice.querySelector("[data-process-notice-link]").addEventListener("click", finish);
+};
+
 initCertificateViewer();
 initHeroCarousel();
+initProcessNotice();
