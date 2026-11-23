@@ -1459,6 +1459,115 @@ body.nav-open .nav-toggle span:last-child {
   gap: 1.5rem;
 }
 
+.qualification-group-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.qualification-group-heading h3 {
+  margin: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(1.4rem, 2.3vw, 1.8rem);
+  line-height: 1.2;
+}
+
+.qualification-group-heading > span {
+  color: var(--accent-warm);
+  font-size: 0.875rem;
+}
+
+.qualification-group-heading--recent {
+  margin-top: 2rem;
+}
+
+.credential-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.credential-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: #0d1b27;
+}
+
+.credential-card--booklet {
+  grid-column: 1 / -1;
+}
+
+.credential-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.credential-card__frame {
+  position: relative;
+  display: block;
+  flex: none;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f4f6f8, #dbe3ec);
+}
+
+.credential-card__frame img {
+  position: absolute;
+  inset: 0.65rem;
+  width: calc(100% - 1.3rem);
+  height: calc(100% - 1.3rem);
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(7, 16, 30, 0.16));
+}
+
+.credential-card--booklet .credential-card__frame {
+  aspect-ratio: 1.8;
+}
+
+.credential-card__caption {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.9rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.credential-card__caption strong {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.credential-card__caption > span {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.credential-card__caption > .credential-card__zoom {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  color: var(--accent-warm);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.credential-card__link:hover .credential-card__zoom {
+  color: #fff;
+}
+
+.credential-card:has(.credential-card__link:focus-visible) {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
 .section--qualifications .section-heading h2 {
   font-size: clamp(2rem, 4.5vw, 3.25rem);
 }
@@ -2449,6 +2558,14 @@ body.certificate-viewer-open {
 }
 
 @media (max-width: 359px) {
+  .credential-card__caption {
+    padding: 0.75rem;
+  }
+
+  .credential-card__caption strong {
+    font-size: 0.875rem;
+  }
+
   .review-card__initial {
     display: none;
   }
@@ -3428,6 +3545,29 @@ body.coaching-picker-open .mobile-cta {
 }
 
 @media (min-width: 720px) {
+  .credential-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .credential-card--booklet {
+    grid-column: auto;
+  }
+
+  .credential-card .credential-card__frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  .credential-card__frame img {
+    inset: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+  }
+
+  .credential-card__caption {
+    padding: 1.15rem;
+  }
+
   .qualification-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
